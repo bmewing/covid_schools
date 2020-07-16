@@ -4,6 +4,29 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+let covid_data;
+
+function loadCOVIDData()
+{
+    let textfile;
+    if (window.XMLHttpRequest)
+    {
+        textfile = new XMLHttpRequest();
+    }
+    textfile.onreadystatechange = function ()
+    {
+        if (textfile.readyState == 4 && textfile.status == 200)
+        {
+            covid_data = textfile.responseText;
+        }
+    }
+    textfile.open("GET", "http://sullivan-covid.s3-website-us-east-1.amazonaws.com/data/covid_data.json", false);
+    textfile.send();
+}
+loadCOVIDData();
+
+console.log(covid_data)
+
 const start_date = new Date(2020, 2, 23);
 const population = 159332;
 const new_cases = [1,0,0,2,2,0,2,3,2,4,0,1,0,3,4,1,1,7,1,2,0,5,1,0,2,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,2,2,1,0,0,2,0,0,0,
