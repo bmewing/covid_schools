@@ -17,7 +17,7 @@ function loadCOVIDData()
     {
         if (textfile.readyState == 4 && textfile.status == 200)
         {
-            covid_data = textfile.responseText;
+            covid_data = JSON.parse(textfile.responseText);
         }
     }
     textfile.open("GET", "http://sullivan-covid.s3-website-us-east-1.amazonaws.com/data/covid_data.json", false);
