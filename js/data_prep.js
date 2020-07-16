@@ -25,13 +25,9 @@ function loadCOVIDData()
 }
 loadCOVIDData();
 
-console.log(covid_data)
-
-const start_date = new Date(2020, 2, 23);
+const start_date = new Date(covid_data.start_date+' 00:00:00');
 const population = 159332;
-const new_cases = [1,0,0,2,2,0,2,3,2,4,0,1,0,3,4,1,1,7,1,2,0,5,1,0,2,0,0,0,0,0,2,0,0,1,0,0,0,1,1,0,0,2,2,1,0,0,2,0,0,0,
-                   0,0,2,1,0,0,0,0,1,2,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,2,0,0,4,1,0,3,0,1,0,0,1,0,1,0,0,1,2,2,0,2,4,0,4,2,
-                   2,10,7,8,1,4,20,18,19,11,21,11,27,29,13];
+const new_cases = covid_data.cases;
 let case_rate = new_cases.map(function(x) { return x/population * 100000 });
 let average = [];
 let tmp = [];
