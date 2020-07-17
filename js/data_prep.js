@@ -4,6 +4,12 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
+function make_date(d)
+{
+    let nd = new Date(d + ' 00:00:00');
+    return nd;
+}
+
 let covid_data;
 
 function loadCOVIDData()
@@ -25,7 +31,7 @@ function loadCOVIDData()
 }
 loadCOVIDData();
 
-const start_date = new Date(covid_data.start_date+' 00:00:00');
+const dates = covid_data.dates;
 const population = 159332;
 const new_cases = covid_data.cases;
 let case_rate = new_cases.map(function(x) { return x/population * 100000 });
@@ -52,7 +58,7 @@ for(let i=0; i<new_cases.length; i++){
     } else {
         lab ='Red'
     }
-    let this_date = start_date.addDays(i)
+    let this_date = make_date(dates[i])
     chart_rate.push({x: this_date, y:case_rate[i]})
     chart_avg.push({x: this_date, y:average[i], category:lab})
     green.push({x: this_date, y:5});
