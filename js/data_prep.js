@@ -1,13 +1,19 @@
 Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
+    let date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
 }
 
+function days_till_school()
+{
+    let school_start = new Date('2020-08-03 00:00:00');
+    let today = new Date();
+    return Math.ceil((school_start - today) / (60*60*24*1000)).toString();
+}
+
 function make_date(d)
 {
-    let nd = new Date(d + ' 00:00:00');
-    return nd;
+    return new Date(d + ' 00:00:00');
 }
 
 let covid_data;
@@ -115,3 +121,5 @@ window.onload = function () {
     });
     chart.render();
 }
+
+document.getElementById('days_till_school').innerText = days_till_school();
