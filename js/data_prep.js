@@ -122,4 +122,4 @@ window.onload = function () {
     chart.render();
 }
 
-document.getElementById('days_till_school').innerText = days_till_school();
+document.getElementById('days_till_school').innerHTML = days_till_school();
