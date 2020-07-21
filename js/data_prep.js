@@ -1,14 +1,18 @@
-Date.prototype.addDays = function(days) {
-    let date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-}
-
-function days_till_school()
-{
+function days_till_school() {
     let school_start = new Date('2020-08-03 00:00:00');
     let today = new Date();
-    return Math.ceil((school_start - today) / (60*60*24*1000)).toString();
+    return Math.ceil((school_start - today) / (60 * 60 * 24 * 1000)).toString();
+}
+
+function all_fixed(cases, val, idname) {
+    let days_left = days_till_school();
+    let to_keep = 14-days_left;
+    let avg = cases.slice(cases.length - to_keep, cases.length);
+    while(avg.length < 14){
+        avg.push(val);
+    }
+    let avg14 = avg.reduce(function(x,y){return x+y;}) / 14;
+    document.getElementById(idname).innerText = avg14.toString()
 }
 
 function make_date(d)
@@ -48,6 +52,9 @@ for(let i=0; i<new_cases.length; i++){
     tmp = case_rate.slice(i-13,i+1);
     average.push(tmp.reduce(function(x,y){return x+y;}) / 14);
 }
+
+all_fixed(case_rate, 0, "all_zero");
+all_fixed(case_rate, 7.5, "seven_point_five");
 
 let chart_rate = [];
 let chart_avg  = [];
