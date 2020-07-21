@@ -12,7 +12,7 @@ function all_fixed(cases, val, idname) {
         avg.push(val);
     }
     let avg14 = avg.reduce(function(x,y){return x+y;}) / 14;
-    document.getElementById(idname).innerText = avg14.toString()
+    document.getElementById(idname).innerText = avg14.toFixed(2)
 }
 
 function make_date(d)
