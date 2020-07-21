@@ -12,7 +12,13 @@ function all_fixed(cases, val, idname) {
         avg.push(val);
     }
     let avg14 = avg.reduce(function(x,y){return x+y;}) / 14;
-    document.getElementById(idname).innerText = avg14.toFixed(2)
+    let color = ' (Green)';
+    if(avg14 > 10){
+        color = ' (Red)'
+    } else if(avg14 > 5){
+        color = ' (Yellow)'
+    }
+    document.getElementById(idname).innerText = avg14.toFixed(2) + color
 }
 
 function make_date(d)
@@ -55,6 +61,7 @@ for(let i=0; i<new_cases.length; i++){
 
 all_fixed(case_rate, 0, "all_zero");
 all_fixed(case_rate, 7.5, "seven_point_five");
+all_fixed(case_rate, 4.5, "four_point_five");
 
 let chart_rate = [];
 let chart_avg  = [];
