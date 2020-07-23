@@ -48,7 +48,7 @@ function loadCOVIDData()
 loadCOVIDData();
 
 const dates = covid_data.dates;
-const population = 159332;
+const population = 158348;
 const new_cases = covid_data.cases;
 let case_rate = new_cases.map(function(x) { return x/population * 100000 });
 let average = [];
