@@ -2,7 +2,7 @@ const yellow_thresh = 6;
 const red_thresh = 11;
 
 function days_till_school() {
-    let school_start = new Date('2020-08-03 00:00:00');
+    let school_start = new Date('2020-08-10 00:00:00');
     let today = new Date();
     return Math.ceil((school_start - today) / (60 * 60 * 24 * 1000)).toString();
 }
