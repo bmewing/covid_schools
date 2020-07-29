@@ -1,6 +1,30 @@
 const yellow_thresh = 6;
 const red_thresh = 11;
 
+function mean(x){
+    return x.reduce(function(x,y){return x+y;}) / x.length;
+}
+
+function sd(x){
+    let mx = mean(x);
+    let ss = x.map(function(a){return Math.pow(a-mx, 2)}).reduce(function(a, b){return a+b});
+    return Math.pow(ss/(x.length - 1), 0.5);
+}
+
+function child_cor(c, p){
+    let mc = mean(c);
+    p = p.slice(-c.length);
+    let mp = mean(p);
+    let sc = sd(c);
+    let sp = sd(p);
+    let sum = 0;
+    for(let i=0; i<c.length; i++){
+        sum = sum + (c[i] - mc)*(p[i] - mp);
+    }
+    let r = Math.pow(sum/(sc*sp)/(c.length-1), 2)*100;
+    document.getElementById("child_corr").innerText = r.toFixed(1)
+}
+
 function days_till_school() {
     let school_start = new Date('2020-08-10 00:00:00');
     let today = new Date();
@@ -78,6 +102,8 @@ let case_rate = calc_rate(new_cases, population);
 let conf_rate = calc_rate(conf_cases, population);
 let adj_rate = calc_rate(adj_conf_cases, population);
 let kid_rate = calc_rate(kid_cases, kid_population);
+
+child_cor(kid_rate, conf_rate);
 
 function calc_averages(series){
     let period = 14;
