@@ -149,6 +149,7 @@ let chart_rate = [];
 let chart_new_avg  = [];
 let chart_conf_avg = [];
 let chart_adj_avg = [];
+let chart_kid_rate = [];
 let chart_kid_avg = [];
 let green = [];
 let yellow = [];
@@ -166,7 +167,8 @@ for(let i=0; i<new_cases.length; i++){
 }
 for(let i=0; i<kid_cases.length; i++){
     let this_date = make_date(kid_dates[i]);
-    chart_kid_avg.push({x: this_date, y: kid_rate[i], category: category_label(kid_rate[i])});
+    chart_kid_rate.push({x: this_date, y: kid_rate[i]});
+    chart_kid_avg.push({x: this_date, y: kid_avg[i], category: category_label(kid_avg[i])});
 }
 
 window.onload = function () {
@@ -182,21 +184,21 @@ window.onload = function () {
         data: [
             {
                 type: "stackedArea",
-                color: "rgba(9,255,0,0.25)",
+                color: "rgba(9,255,0,0.15)",
                 markerType:"none",
                 toolTipContent: "Green Zone",
                 dataPoints: green
             },
             {
                 type: "stackedArea",
-                color: "rgba(223,235,99,0.25)",
+                color: "rgba(223,235,99,0.15)",
                 markerType:"none",
                 toolTipContent: "Yellow Zone",
                 dataPoints: yellow
             },
             {
                 type: "stackedArea",
-                color: "rgba(255,0,0,0.25)",
+                color: "rgba(255,0,0,0.15)",
                 markerType:"none",
                 toolTipContent: "Red Zone",
                 dataPoints: red
@@ -210,12 +212,21 @@ window.onload = function () {
                 dataPoints: chart_rate
             },
             {
-                type: "line",
-                color: "rgba(23,171,0,1)",
-                lineThickness:4,
+                type: "column",
+                color: "rgba(29,143,0,0.75)",
                 showInLegend:true,
                 legendText: "School Aged Children Rate",
                 toolTipContent: "Date: {x}<hr/>Category: <strong>{category}</strong><br/>School Aged Children Rate (5-18yo): {y}",
+                dataPoints: chart_kid_rate
+            },
+            {
+                type: "line",
+                color: "rgba(0,0,0,1)",
+                lineThickness:4,
+                markerType:"none",
+                showInLegend:true,
+                legendText: "14DA School Aged Children",
+                toolTipContent: "Date: {x}<hr/>Category: <strong>{category}</strong><br/>14 Day Average School Aged Children Rate (5-18yo): {y}",
                 dataPoints: chart_kid_avg
             },
             {
@@ -243,7 +254,7 @@ window.onload = function () {
             },
             {
                 type: "line",
-                color: "rgba(0,0,0,1)",
+                color: "rgba(255,145,0,1)",
                 lineThickness:4,
                 markerType:"none",
                 showInLegend:true,
