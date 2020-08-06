@@ -1,6 +1,27 @@
 const yellow_thresh = 6;
 const red_thresh = 11;
 
+function days_since_max(s,d){
+    let max = 0;
+    let days = 0;
+    let output = [];
+    for(let i=0; i < s.length; i++){
+        let this_date = make_date(d[i])
+        if(s[i] > max && days > 0){
+            output.push({x: this_date, y: days, max: s[i]});
+            max = s[i];
+            days = 0;
+        }
+        if(s[i] > 0){
+            days++;
+        }
+    }
+    if(days > 0){
+        output.push({x: make_date(d[d.length-1]), y: days, max: max})
+    }
+    return output;
+}
+
 function mean(x){
     return x.reduce(function(x,y){return x+y;}) / x.length;
 }
@@ -106,10 +127,6 @@ let kid_rate = calc_rate(kid_cases, kid_population);
 child_cor(kid_rate, conf_rate);
 
 function calc_averages(series){
-    let period = 14;
-    if(series.length < period){
-        period = series.length-1;
-    }
     let avg = [];
     let tmp = [];
     for(let i=0; i<series.length; i++){
@@ -121,7 +138,7 @@ function calc_averages(series){
 }
 
 function category_label(val){
-    let lab='ERROR';
+    let lab = 'ERROR';
     if(val < yellow_thresh){
         lab = 'Green'
     } else if(val < red_thresh){
@@ -155,6 +172,7 @@ let green = [];
 let yellow = [];
 let red = [];
 let max_rate = conf_rate.reduce(function(x,y){if(x > y){return x;}else{return y;}});
+let chart2_days_since_max = days_since_max(conf_avg, dates)
 for(let i=0; i<new_cases.length; i++){
     let this_date = make_date(dates[i]);
     chart_rate.push({x: this_date, y:conf_rate[i], new_rate:case_rate[i]});
@@ -172,6 +190,24 @@ for(let i=0; i<kid_cases.length; i++){
 }
 
 window.onload = function () {
+    let chart2 = new CanvasJS.Chart("flatContainer",
+        {
+            axisX:{
+            title: "Date"
+        },
+        title:{
+            text: "Days Since New Maximum Rate Observed"
+        },
+        data: [
+            {
+                type: "line",
+                color: "rgba(0,0,0,1)",
+                lineThickness:3,
+                toolTipContent: "Date: {x}<hr/><br/>Days Since New Maximum Rate Observed: {y}<br/>Maximum Rate: {max}.",
+                dataPoints: chart2_days_since_max
+            }
+            ]
+        });
     let chart = new CanvasJS.Chart("chartContainer",
     {
         zoomEnabled: true,
@@ -265,6 +301,7 @@ window.onload = function () {
             ]
     });
     chart.render();
+    chart2.render();
 }
 
 document.getElementById('days_till_school').innerText = days_till_school();
