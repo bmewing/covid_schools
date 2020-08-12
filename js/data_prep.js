@@ -7,16 +7,16 @@ function days_since_max(s,d){
     let output = [];
     for(let i=0; i < s.length; i++){
         let this_date = make_date(d[i])
-        if(s[i] > max && days > 0){
+        if(s[i] > max && days < 0){
             output.push({x: this_date, y: days, max: s[i]});
             max = s[i];
             days = 0;
         }
         if(s[i] > 0){
-            days++;
+            days--;
         }
     }
-    if(days > 0){
+    if(days < 0){
         output.push({x: make_date(d[d.length-1]), y: days, max: max})
     }
     return output;
@@ -53,7 +53,7 @@ function days_till_school() {
 }
 
 scenario_calc = function(cases, val){
-    let days_left = days_till_school();
+    let days_left = 7;
     let to_keep = 14-days_left;
     let avg = cases.slice(cases.length - to_keep, cases.length);
     while(avg.length < 14){
@@ -62,20 +62,20 @@ scenario_calc = function(cases, val){
     let avg14 = avg.reduce(function(x,y){return x+y;}) / 14;
     let color = ' (Green)';
     if(avg14 >= red_thresh){
-        color = ' (Red)'
+        color = ' (Red)';
     } else if(avg14 >= yellow_thresh){
-        color = ' (Yellow)'
+        color = ' (Yellow)';
     }
-    return {"avg14": avg14, "color": color}
+    return {"avg14": avg14, "color": color};
 }
 
 function all_fixed(cases, val, idname) {
-    let tmp = scenario_calc(cases, val)
+    let tmp = scenario_calc(cases, val);
     document.getElementById(idname).innerText = tmp.avg14.toFixed(2) + tmp.color
 }
 
 function all_fixed_no_senior(cases, val, idname) {
-    let tmp = scenario_calc(cases, val)
+    let tmp = scenario_calc(cases, val);
     document.getElementById(idname).innerText = 'ignoring seniors, '+tmp.avg14.toFixed(2) + tmp.color
 }
 
@@ -303,8 +303,6 @@ window.onload = function () {
     chart.render();
     chart2.render();
 }
-
-document.getElementById('days_till_school').innerText = days_till_school();
 
 function makeTable(D){
   var a = '';
