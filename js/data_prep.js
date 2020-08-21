@@ -124,7 +124,7 @@ let conf_rate = calc_rate(conf_cases, population);
 let adj_rate = calc_rate(adj_conf_cases, population);
 let kid_rate = calc_rate(kid_cases, kid_population);
 
-child_cor(kid_rate, conf_rate);
+// child_cor(kid_rate, conf_rate);
 
 function calc_averages(series){
     let avg = [];
