@@ -190,24 +190,24 @@ for(let i=0; i<kid_cases.length; i++){
 }
 
 window.onload = function () {
-    let chart2 = new CanvasJS.Chart("flatContainer",
-        {
-            axisX:{
-            title: "Date"
-        },
-        title:{
-            text: "Days Since New Maximum Rate Observed"
-        },
-        data: [
-            {
-                type: "line",
-                color: "rgba(0,0,0,1)",
-                lineThickness:3,
-                toolTipContent: "Date: {x}<hr/><br/>Days Since New Maximum Rate Observed: {y}<br/>Maximum Rate: {max}.",
-                dataPoints: chart2_days_since_max
-            }
-            ]
-        });
+    // let chart2 = new CanvasJS.Chart("flatContainer",
+    //     {
+    //         axisX:{
+    //         title: "Date"
+    //     },
+    //     title:{
+    //         text: "Days Since New Maximum Rate Observed"
+    //     },
+    //     data: [
+    //         {
+    //             type: "line",
+    //             color: "rgba(0,0,0,1)",
+    //             lineThickness:3,
+    //             toolTipContent: "Date: {x}<hr/><br/>Days Since New Maximum Rate Observed: {y}<br/>Maximum Rate: {max}.",
+    //             dataPoints: chart2_days_since_max
+    //         }
+    //         ]
+    //     });
     let chart = new CanvasJS.Chart("chartContainer",
     {
         zoomEnabled: true,
