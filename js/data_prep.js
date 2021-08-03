@@ -130,6 +130,7 @@ function calc_averages(series){
     let avg = [];
     let tmp = [];
     for(let i=0; i<series.length; i++){
+        //assumes the newest values are at the beginning
         if(i>series.length-13){avg.push(0);continue;}
         tmp = series.slice(i,i+14);
         avg.push(tmp.reduce(function(x,y){return x+y;}) / 14);
