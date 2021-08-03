@@ -130,8 +130,8 @@ function calc_averages(series){
     let avg = [];
     let tmp = [];
     for(let i=0; i<series.length; i++){
-        if(i<13){avg.push(0);continue;}
-        tmp = series.slice(i-13,i+1);
+        if(i>series.length-13){avg.push(0);continue;}
+        tmp = series.slice(i,i+14);
         avg.push(tmp.reduce(function(x,y){return x+y;}) / 14);
     }
     return avg;
@@ -175,6 +175,7 @@ let max_rate = conf_rate.reduce(function(x,y){if(x > y){return x;}else{return y;
 let chart2_days_since_max = days_since_max(conf_avg, dates)
 for(let i=0; i<new_cases.length; i++){
     let this_date = make_date(dates[i]);
+    if(conf_avg[i] === 0){continue;}
     chart_rate.push({x: this_date, y:conf_rate[i], new_rate:case_rate[i]});
     chart_conf_avg.push({x: this_date, y: conf_avg[i], category: category_label(conf_avg[i])});
     chart_new_avg.push({x: this_date, y: average[i], category: category_label(average[i])});
@@ -185,6 +186,7 @@ for(let i=0; i<new_cases.length; i++){
 }
 for(let i=0; i<kid_cases.length; i++){
     let this_date = make_date(kid_dates[i]);
+    if(kid_avg[i] === 0){continue;}
     chart_kid_rate.push({x: this_date, y: kid_rate[i]});
     chart_kid_avg.push({x: this_date, y: kid_avg[i], category: category_label(kid_avg[i])});
 }
